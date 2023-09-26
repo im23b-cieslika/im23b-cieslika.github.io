@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shit</title>
+    <script>
+      var time_left = 300;
+      function tick()
+      {
+        time_left--;
+        document.getElementById("time").innerHTML = ((time_left - time_left % 60)/60)+":"+(time_left%60);
+        if(time_left == 0)window.location.href="index.html";
+        setTimeout(tick,1000);
+      }
+      function load()
+      {
+        nextQuest();
+        tick();
+      }
+      function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+      var isdecimal = false;
+      function biniptodecip(ip)
+      {
+        var decip = "";
+        for(var i = 0;i < ip.length;i+=8)
+        {
+          decip += parseInt(ip.substring(i,i+8),2)+".";
+        }
+        return decip.trimStart('.');
+      }
+      function dediptobin(ip)
+      {
+        var splits = ip.split(".");
+        var result = "";
+        for(var i = 0;i < splits.length;i++)
+        {
+          var split = splits[i];
+          var o = parseInt(split);
+          result+=o.toString(2).padStart(8,"0")
+        }
+      }
+        String.prototype.replaceAt = function(index, replacement) {
+    return this.substring(0, index) + replacement + this.substring(index + replacement.length);
+}
+        function dec2bin(dec, sys = 2) {
+            return (dec >>> 0).toString(sys);
+        }
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+        var cuers ="";
+        var tries = 0;
+        var success = 0;
+        function nextQuest()
+        {
+            document.getElementById("pyro").style.opacity = 0;
+            var subnet_cidr = getRandomInt(24);
+            var znetzbin = Math.min(getRandomInt(32-subnet_cidr),8);
+            var znetz = Math.pow(2,znetzbin);
+
+            var subnet = "0000000000000000000000000000000";
+            var subnet2 = "0000000000000000000000000000000";
+            for(var i = 0;i < subnet_cidr+znetzbin;i++)
+            {
+              subnet = subnet.replaceAt(subnet_cidr+znetzbin-i-1,"1");
+            }
+            for(var i = 0;i < subnet_cidr;i++)
+            {
+              subnet2 = subnet2.replaceAt(subnet_cidr-i-1,"1");
+            }
+            if(isdecimal)subnet2 = biniptodecip(subnet2);
+            document.getElementById("quest").innerHTML = znetz+" bei "+subnet2;
+            cuers = subnet;
+            if(isdecimal)cuers = biniptodecip(cuers);
+        }
+        function flipid()
+        {
+          isdecimal = !isdecimal;
+          document.getElementById("dec").innerHTML = isdecimal ? "Show tasks in binary" : "Show tasks in decimal";
+          nextQuest();
+        }
+        function check()
+        {
+            tries++;
+            if(document.getElementById("result").value == cuers)
+            {
+                document.getElementById("pyro").style.opacity = 1; 
+                setTimeout(nextQuest,1000);
+                success++;
+            }else{
+                alert("Wrong it would be: "+cuers);
+                nextQuest();
+            }
+            setCookie("subnetzmaske",(success/tries)*100,7);
+            setCookie("subnetzmasketrs",tries,7);
+            document.getElementById("Score").innerHTML = success+"/"+tries;
+        }
+        var was = 3;
+        function noADS()
+        {
+            was = was+1;
+            if(was > 3)was = 0;
+            document.getElementById("ad1").style.opacity = 0;
+            document.getElementById("ad2").style.opacity = 0;
+            switch(was)
+            {
+                case 0:
+                    document.getElementById("noabb").innerHTML="Only Subway Surfers";
+                    break;
+                case 1:
+                    document.getElementById("ad2").style.opacity = 1;
+                    document.getElementById("noabb").innerHTML="Only Wiedzmin";
+                    break;
+                case 2:
+                    document.getElementById("ad1").style.opacity = 1;
+                    document.getElementById("noabb").innerHTML="Wiedzmin & Subway Surfers On";
+                    break;
+                case 3:
+                    document.getElementById("ad1").style.opacity = 1;
+                    document.getElementById("ad2").style.opacity = 1;
+                    document.getElementById("noabb").innerHTML="Wiedzmin & Subway Surfers Off";
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+    <style>
+        input{
+            border: black 2px solid;
+        }
+        button{
+            border: black 2px solid;
+        }
+        textarea{
+            border: black 2px solid;
+        }
+        body{
+            background: rgb(231,231,231);
+background: linear-gradient(201deg, rgba(231,231,231,1) 0%, rgba(182,182,182,1) 100%);
+overflow: hidden;
+font-family: 'Space Grotesk', sans-serif;
+        }
+        
+.pyro > .before, .pyro > .after {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  box-shadow: -120px -218.66667px blue, 248px -16.66667px #00ff84, 190px 16.33333px #002bff, -113px -308.66667px #ff009d, -109px -287.66667px #ffb300, -50px -313.66667px #ff006e, 226px -31.66667px #ff4000, 180px -351.66667px #ff00d0, -12px -338.66667px #00f6ff, 220px -388.66667px #99ff00, -69px -27.66667px #ff0400, -111px -339.66667px #6200ff, 155px -237.66667px #00ddff, -152px -380.66667px #00ffd0, -50px -37.66667px #00ffdd, -95px -175.66667px #a6ff00, -88px 10.33333px #0d00ff, 112px -309.66667px #005eff, 69px -415.66667px #ff00a6, 168px -100.66667px #ff004c, -244px 24.33333px #ff6600, 97px -325.66667px #ff0066, -211px -182.66667px #00ffa2, 236px -126.66667px #b700ff, 140px -196.66667px #9000ff, 125px -175.66667px #00bbff, 118px -381.66667px #ff002f, 144px -111.66667px #ffae00, 36px -78.66667px #f600ff, -63px -196.66667px #c800ff, -218px -227.66667px #d4ff00, -134px -377.66667px #ea00ff, -36px -412.66667px #ff00d4, 209px -106.66667px #00fff2, 91px -278.66667px #000dff, -22px -191.66667px #9dff00, 139px -392.66667px #a6ff00, 56px -2.66667px #0099ff, -156px -276.66667px #ea00ff, -163px -233.66667px #00fffb, -238px -346.66667px #00ff73, 62px -363.66667px #0088ff, 244px -170.66667px #0062ff, 224px -142.66667px #b300ff, 141px -208.66667px #9000ff, 211px -285.66667px #ff6600, 181px -128.66667px #1e00ff, 90px -123.66667px #c800ff, 189px 70.33333px #00ffc8, -18px -383.66667px #00ff33, 100px -6.66667px #ff008c;
+  -moz-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+  -webkit-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+  -o-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+  -ms-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+  animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards; }
+
+.pyro > .after {
+  -moz-animation-delay: 1.25s, 1.25s, 1.25s;
+  -webkit-animation-delay: 1.25s, 1.25s, 1.25s;
+  -o-animation-delay: 1.25s, 1.25s, 1.25s;
+  -ms-animation-delay: 1.25s, 1.25s, 1.25s;
+  animation-delay: 1.25s, 1.25s, 1.25s;
+  -moz-animation-duration: 1.25s, 1.25s, 6.25s;
+  -webkit-animation-duration: 1.25s, 1.25s, 6.25s;
+  -o-animation-duration: 1.25s, 1.25s, 6.25s;
+  -ms-animation-duration: 1.25s, 1.25s, 6.25s;
+  animation-duration: 1.25s, 1.25s, 6.25s; }
+
+@-webkit-keyframes bang {
+  from {
+    box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+@-moz-keyframes bang {
+  from {
+    box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+@-o-keyframes bang {
+  from {
+    box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+@-ms-keyframes bang {
+  from {
+    box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+@keyframes bang {
+  from {
+    box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+@-webkit-keyframes gravity {
+  to {
+    transform: translateY(200px);
+    -moz-transform: translateY(200px);
+    -webkit-transform: translateY(200px);
+    -o-transform: translateY(200px);
+    -ms-transform: translateY(200px);
+    opacity: 0; } }
+@-moz-keyframes gravity {
+  to {
+    transform: translateY(200px);
+    -moz-transform: translateY(200px);
+    -webkit-transform: translateY(200px);
+    -o-transform: translateY(200px);
+    -ms-transform: translateY(200px);
+    opacity: 0; } }
+@-o-keyframes gravity {
+  to {
+    transform: translateY(200px);
+    -moz-transform: translateY(200px);
+    -webkit-transform: translateY(200px);
+    -o-transform: translateY(200px);
+    -ms-transform: translateY(200px);
+    opacity: 0; } }
+@-ms-keyframes gravity {
+  to {
+    transform: translateY(200px);
+    -moz-transform: translateY(200px);
+    -webkit-transform: translateY(200px);
+    -o-transform: translateY(200px);
+    -ms-transform: translateY(200px);
+    opacity: 0; } }
+@keyframes gravity {
+  to {
+    transform: translateY(200px);
+    -moz-transform: translateY(200px);
+    -webkit-transform: translateY(200px);
+    -o-transform: translateY(200px);
+    -ms-transform: translateY(200px);
+    opacity: 0; } }
+@-webkit-keyframes position {
+  0%, 19.9% {
+    margin-top: 10%;
+    margin-left: 40%; }
+
+  20%, 39.9% {
+    margin-top: 40%;
+    margin-left: 30%; }
+
+  40%, 59.9% {
+    margin-top: 20%;
+    margin-left: 70%; }
+
+  60%, 79.9% {
+    margin-top: 30%;
+    margin-left: 20%; }
+
+  80%, 99.9% {
+    margin-top: 30%;
+    margin-left: 80%; } }
+@-moz-keyframes position {
+  0%, 19.9% {
+    margin-top: 10%;
+    margin-left: 40%; }
+
+  20%, 39.9% {
+    margin-top: 40%;
+    margin-left: 30%; }
+
+  40%, 59.9% {
+    margin-top: 20%;
+    margin-left: 70%; }
+
+  60%, 79.9% {
+    margin-top: 30%;
+    margin-left: 20%; }
+
+  80%, 99.9% {
+    margin-top: 30%;
+    margin-left: 80%; } }
+@-o-keyframes position {
+  0%, 19.9% {
+    margin-top: 10%;
+    margin-left: 40%; }
+
+  20%, 39.9% {
+    margin-top: 40%;
+    margin-left: 30%; }
+
+  40%, 59.9% {
+    margin-top: 20%;
+    margin-left: 70%; }
+
+  60%, 79.9% {
+    margin-top: 30%;
+    margin-left: 20%; }
+
+  80%, 99.9% {
+    margin-top: 30%;
+    margin-left: 80%; } }
+@-ms-keyframes position {
+  0%, 19.9% {
+    margin-top: 10%;
+    margin-left: 40%; }
+
+  20%, 39.9% {
+    margin-top: 40%;
+    margin-left: 30%; }
+
+  40%, 59.9% {
+    margin-top: 20%;
+    margin-left: 70%; }
+
+  60%, 79.9% {
+    margin-top: 30%;
+    margin-left: 20%; }
+
+  80%, 99.9% {
+    margin-top: 30%;
+    margin-left: 80%; } }
+@keyframes position {
+  0%, 19.9% {
+    margin-top: 10%;
+    margin-left: 40%; }
+
+  20%, 39.9% {
+    margin-top: 40%;
+    margin-left: 30%; }
+
+  40%, 59.9% {
+    margin-top: 20%;
+    margin-left: 70%; }
+
+  60%, 79.9% {
+    margin-top: 30%;
+    margin-left: 20%; }
+
+  80%, 99.9% {
+    margin-top: 30%;
+    margin-left: 80%; } }
+
+    </style>
+</head>
+<body onload="load()">
+  <h1 style="position: absolute;left: 0px;bottom: 0px;" id="time">00:00</h1>
+    <h1 style="position: absolute;left: 0px;top: 0px;" id="Score"></h1>
+    <div style="position: absolute;left: 50%;top:50%;transform: translate(-50%,-50%);width: 50%;">
+        <h1 id="quest"></h1>
+        <br>
+        <input style="width: 100%;" id="result" type="text" name="" id="" placeholder="Your text">
+        <br>
+        <button style="width: 100%;" onclick="check()">Check and next</button>
+        <br>
+        <textarea style="width: 100%;" placeholder="Notes..." name="" id="" cols="30" rows="10"></textarea>
+        <br>
+        <button onclick="flipid()" style="width: 100%;" id="dec">Show tasks in decimal</button>
+        <br>
+        <button id="noabb" style="width: 100%;" onclick="noADS()">Wiedzmin & Subway Surfers Off</button>
+    </div>
+    <div class="pyro" id="pyro">
+        <div class="before"></div>
+        <div class="after"></div>
+    </div>
+    <img id="ad2" style="position: absolute;top: 50%;left: 0px;transform: translate(0px,-50%);width: 20%;" src="https://media.tenor.com/1wZ88hrB5SwAAAAd/subway-surfer.gif" alt="">
+    <img id="ad1" onclick="window.location.href='https://www.mediaexpert.pl/gaming/gry/gry/gra-ps5-wiedzmin-3-dziki-gon-edycja-kompletna'" style="position: absolute;top: 50%;right: 0px;transform: translate(0px,-50%);width: 20%;" src="https://image.ceneostatic.pl/data/products/23586526/i-wiedzmin-3-dziki-gon-gra-pc.jpg" alt="">
+</body>
+</html>

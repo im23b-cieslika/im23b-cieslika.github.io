@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+    <style>
+        input{
+            border: black 2px solid;
+        }
+        button{
+            border: black 2px solid;
+        }
+        textarea{
+            border: black 2px solid;
+        }
+        body{
+            background: rgb(231,231,231);
+background: linear-gradient(201deg, rgba(231,231,231,1) 0%, rgba(182,182,182,1) 100%);
+overflow: hidden;
+font-family: 'Space Grotesk', sans-serif;
+        }
+        </style>
+        <script>
+            function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i <ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+            }
+            function refsh()
+            {
+                if(getCookie("bindec") != "")
+                {
+                    var per = parseFloat(getCookie("bindec"));
+                    var trs = parseInt(getCookie("bindectrs"));
+                    document.getElementById("bds").innerHTML = trs+" Tries, "+Math.round(((trs*per)/100))+" Right   "+Math.round(per,2)+"%";
+                }
+                if(getCookie("howmanydev") != "")
+                {
+                    var per = parseFloat(getCookie("howmanydev"));
+                    var trs = parseInt(getCookie("howmanydevtrs"));
+                    document.getElementById("hms").innerHTML = trs+" Tries, "+Math.round(((trs*per)/100))+" Right   "+Math.round(per,2)+"%";
+                }
+                if(getCookie("subnetzmaske") != "")
+                {
+                    var per = parseFloat(getCookie("subnetzmaske"));
+                    var trs = parseInt(getCookie("subnetzmasketrs"));
+                    document.getElementById("sns").innerHTML = trs+" Tries, "+Math.round(((trs*per)/100))+" Right   "+Math.round(per,2)+"%";
+                }
+            }
+            setTimeout(refsh,5000);
+        </script>
+</head>
+<body onload="refsh()">
+    <h1>Really bad IT Learning Website</h1>
+    <p><a href="bindec.html">Learn how to convert between bases</a>&nbsp;&nbsp;<span id="bds">Not solved</span></p>
+    <br>
+    <p><a href="howmanydev.html">How many devices fit onto a subnet ?</a>&nbsp;&nbsp;<span id="hms">Not solved</span></p>
+    <br>
+    <p><a href="subnetzmaske.html">Create more Networks !</a>&nbsp;&nbsp;<span id="sns">Not solved</span></p>
+</body>
+</html>
